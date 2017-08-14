@@ -1,3 +1,8 @@
+// 这个分号的作用是防止和其他jquery插件合并时，别人不规范的jquery插件忘记使用分号结束
+//影响到我们当前的插件，导致无法运行的问题。 
+// undefined作为形参的目的是因为在es3中undefined是可以被修改的
+//比如我们可以声明var undefined = 123,这样就影响到了undefined值的判断，幸运的是在es5中,undefined不能被修改了。
+// window和document本身是全局变量，在这个地方作为形参的目的是因为js执行是从里到外查找变量的（作用域），把它们作为局部变量传进来，就避免了去外层查找，提高了效率。
 ;(function($,window,document,undefined){
 	"use strict";
 	var SendNum = function(options){
