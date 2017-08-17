@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="x5-orientation" content="portrait">
+    <title>自定义tap事件</title>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/rem.js"></script>
+    
+	<style>
+		.content{background-color: #00c7ff;width: 100%;height: 200px;}
+		.blue{background-color: blue;}
+		.red{background-color: red;}
+		.green{background-color: green;}
+		.yellow{background-color: yellow;}
+		.goTop{position: fixed;right: 0.2rem;bottom: 1.5rem;width: 0.74rem;height: 0.74rem;background: rgba(255, 195, 18, 0.8) url(./goTop.png) center center no-repeat;background-size: 0.32rem 0.32rem;border-radius: 100%;z-index: 97;display: none;cursor: pointer;}
+	</style>
+</head>
+<body>
+	<div class="content blue"></div>
+	<div class="content red"></div>
+	<div class="content green"></div>
+	<div class="content yellow"></div>
+	<div class="content blue"></div>
+	<div id="goTop" class="goTop"></div>
+
+
+	<script src="tap.js"></script>
+	<script>
+		 /*回到顶部*/
+	    $(document).ready(function(){  
+			var btn = $("#goTop");   
+			$(window).scroll(function(event) {
+				if($(this).scrollTop()>2){
+					btn.show()
+				}else {
+					btn.hide()
+				}
+			});
+			/*btn.on('touchstart', function(event) {
+				$('html,body').animate({scrollTop:0},'slow');    
+				return false; 
+			});  */
+			btn[0].addTapEvent(function(){
+				$('html,body').animate({scrollTop:0},'slow');    
+				return false; 
+			})
+		});
+	</script>
+</body>
+</html>
