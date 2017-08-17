@@ -11,6 +11,8 @@
 	
 	<a href="www.baidu.com" id="btn2" style="border:1px solid #aaa;padding: 4px;">发送验证码</a>
 	
+	<span class="span" style="border:1px solid #aaa;padding: 4px;">发送验证码</span>
+
 	<script src="sendNum2.js"></script>
 	<script>
 		$("#btn").sendNum({
@@ -28,6 +30,14 @@
 			}
 		}).css({
 			"borderColor":"blue"
+		})
+
+		$(".span").sendNum({
+			func : function(){
+				console.log("DONE")
+			}
+		}).css({
+			"borderColor":"green"
 		})
 	</script>
 </body>
