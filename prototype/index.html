@@ -59,9 +59,11 @@
         F.prototype=Parent.prototype;
         /*子类的原型间接继承父类的原型*/
         Child.prototype=new F();
-
+        Child.constructor=Child;
         /*实例*/
         var child = new Child("youming",18)
+
+
 
         /*封装一下这种方法*/
         var Parent = function(name){
