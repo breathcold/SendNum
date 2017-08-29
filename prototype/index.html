@@ -59,7 +59,7 @@
         F.prototype=Parent.prototype;
         /*子类的原型间接继承父类的原型*/
         Child.prototype=new F();
-        Child.constructor=Child;
+        Child.prototype.constructor=Child;
         /*实例*/
         var child = new Child("youming",18)
 
@@ -81,7 +81,7 @@
         }
         function _extend(child,parent){
             var prototype = object(parent);
-            prototype.constructor=child;
+            prototype.prototype.constructor=child;
             child.prototype=prototype
         }
         /*实现继承*/
