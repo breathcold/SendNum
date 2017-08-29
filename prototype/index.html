@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多重继承</title>
+</head>
+<body>
+    
+
+    <script>
+        /* Mixin 多重继承 */
+        var Animal = function(){/* code */}
+        var Mammal = function(){
+            /* code */
+            Animal.apply(this,arguments);//对象冒充
+        }
+        var NonMammal = function(){
+            /* code */
+            Animal.apply(this,arguments);//对象冒充
+        }
+        /* 哺乳动物 */
+        var Dog = function(){/* code */}
+        Dog.prototype= new Mammal() //原型链
+        var Squirrels = function(){/* code */}
+        Squirrels.prototype=new Mammal() //原型链
+        /* 非哺乳动物 */
+        var Eagle = function(){/* code */}
+        Eagle.prototype=new NonMammal() //原型链
+        var Crocodile = function(){/* code */}
+        Crocodile.prototype = new NonMammal()   //原型链
+        
+    </script>
+</body>
+</html>
