@@ -19,7 +19,24 @@
             Parent.call(this,name);
             this.age = age;
         }
+        /*Object.create(proto[,propertiesObject ])*/
+        /*
+        proto,新创建对象的原型
+        propertiesObject,新创建对象的属性与值，其结构类似Object.defineProperties()的第二个参数，如下
+        Object.create(proto,{
+			test : {
+				writable:true,
+			    configurable:true,
+			    value: "hello" 
+			}
+        })
+         */
+        /*继承一个父类*/
         Child.prototype=Object.create(Parent.prototype);
+        /*
+        继承多个父类
+        Object.assign(MyClass.prototype, OtherSuperClass.prototype);
+         */
         Child.prototype.constructor=Child;
         Child.prototype.prop = function(){
         	console.log("prop")
