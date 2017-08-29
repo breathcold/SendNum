@@ -10,10 +10,11 @@
     
 
     <script>
-        /* Mixin 多重继承 */
+        /* 组合继承，构造函数和经典继承双贱合璧 */
         var Animal = function(){/* code */}
         var Mammal = function(){
             /* code */
+            this.liveStyle = "Mammal";
             Animal.apply(this,arguments);//对象冒充
         }
         var NonMammal = function(){
@@ -23,6 +24,12 @@
         /* 哺乳动物 */
         var Dog = function(){/* code */}
         Dog.prototype= new Mammal() //原型链
+        var myDog = new Dog()
+        /*
+        这里Mammal被调用了两次，第一次是 Dog.prototype= new Mammal()，第二次是var myDog = new Dog()
+        Dog.prototype 和 myDog同时具有 liveStyle = "Mammal" ,我们可以通过让Dog.prototype直接指向Mammal.prototype，就可以避免重复创建属性了，使用寄生组合式继承可以实现这种方式
+         */
+
         var Squirrels = function(){/* code */}
         Squirrels.prototype=new Mammal() //原型链
         /* 非哺乳动物 */
@@ -31,6 +38,49 @@
         var Crocodile = function(){/* code */}
         Crocodile.prototype = new NonMammal()   //原型链
         
+
+        /*寄生组合继承，最通用的继承方式*/
+        var Parent = function(name){
+            this.name = name;
+            this.color = ['red', 'blue', 'green'];
+        }
+        Parent.prototype.getName = function(){
+            console.log(this.name)
+        }
+        var Child = function(name,age){
+            Parent.call(this,name);
+            this.age = age;
+        }
+        /*关键一步，利用构造函数，间接传递父类的原型给子类*/
+        function F(){}
+        F.prototype=Parent.prototype;
+        /*子类的原型间接继承父类的原型*/
+        Child.prototype=new F();
+
+        /*实例*/
+        var child = new Child("youming",18)
+
+        /*封装一下这种方法*/
+        var Parent = function(name){
+            this.name = name;
+            this.color = ['red', 'blue', 'green'];
+        }
+        var Child = function(name,age){
+            Parent.call(this,name); //继承属性
+            this.age = age;
+        }
+        function object(obj){
+            var F = function(){};
+            F.prototype = obj.prototype;
+            return new F()
+        }
+        function _extend(child,parent){
+            var prototype = object(parent);
+            prototype.constructor=child;
+            child.prototype=prototype
+        }
+        /*实现继承*/
+        _extend(Child,Parent);
     </script>
 </body>
 </html>
