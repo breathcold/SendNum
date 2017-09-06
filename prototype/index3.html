@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js深浅拷贝</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//es6数组去重
+		var arr = [12,'12',1,2,3,2,5,4,2,3];
+		var _arr = [...new Set(arr)]
+		console.log(_arr); //[12, "12", 1, 2, 3, 5, 4]
+
+		/*js的深浅拷贝*/
+		//浅拷贝
+		var obj = {'name':"huyouming","age":"23","love":[1,12,10]}
+		var _obj = obj;
+		//_obj.name="wujia";
+		//console.log(obj); //{name: "wujia", age: "23"}
+		//假深拷贝
+		var __obj=Object.assign({},obj);
+		//__obj.name="wujia";
+		//console.log(obj); //{name: "huyouming", age: "23", love: Array(3)}
+		__obj.love[0]=4;
+		console.log(obj);//love:(3) [4, 2, 32]
+		//Object.assign并不是深拷贝，是披着深拷贝外衣的浅拷贝。最多也是Object.assign会课拷贝第一层的值，对于第一层的值都是深拷贝，而到第二层的时候就是 复制引用。类似的情况还有，slice方法和contact方法等
+		
+		//深拷贝
+		function deepClone(old){
+			if(typeof old !== 'object'){return;}
+			var newObj=old.constructor===Array?[]:{}
+			for(var key in old){
+				if(old[key] && typeof old[key] === 'object'){
+					newObj[key] = old[key].constructor === Array ? [] : {};
+					newObj[key]=deepClone(old[key]);
+				}else{
+					newObj[key]=old[key]
+				}
+			}
+			return newObj
+		}
+
+		var ___obj=deepClone(obj);
+		___obj.love[2]=400;
+		console.log(obj,___obj);
+
+		/*粗暴直接的方法*/
+		// 转为json字符串再回来再赋值
+		var __obj_ = JSON.parse(JSON.stringify(obj));
+		__obj_.love[0]=10000;
+		console.log(obj,__obj_);
+
+	</script>
+</body>
+</html>

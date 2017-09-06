@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义事件</title>
+</head>
+<body>
+	<a href="index2.html?abc=我是中文">点击</a>
+	<script type="text/javascript">
+		
+		/**
+		 * [AddEvent description]
+		 * AddEvent构造函数，其属性handlers用于存储事件处理程序
+		 * addListen是向handlers中添加事件处理程序
+		 * fireEvent是触发handlers中的事件处理程序
+		 * removeEvent是向handlers中移除事件处理程序
+		 */
+		var AddEvent = function(){
+			this.handlers={}  //存储事件处理程序
+		}
+		AddEvent.prototype = {
+			constructor:AddEvent,
+			addListen:function(type,handler){
+				if(typeof this.handlers[type]=='undefined'){
+					this.handlers[type]=[]
+				}
+				this.handlers[type].push(handler)
+			},
+			fireEvent:function(event){
+				if(!event.target){
+					event.target=this
+				}
+				if(this.handlers[event.type] instanceof Array){
+					var handlers = this.handlers[event.type];
+					for(var i = 0,len = handlers.length;i<len;i++){
+						handlers[i](event);
+					}
+				}
+			},
+			removeEvent:function(type,handler){
+				if(this.handlers[type] instanceof Array){
+					var handlers = this.handlers[type];
+					for(var i = 0,len=handlers.length;i<len;i++){
+						if(handlers[i]==handler){
+							break;
+						}
+					} 
+					handlers.splice(i,1);
+				}
+			}
+		} 
+
+
+		/*调用方法*/
+		var eventObj=new AddEvent(); //实例化一个EventTarget类型
+
+		var handler=function(){
+		    alert('event');
+		};  //事件处理程序
+
+		eventObj.addListen('alert',handler); //为eventObj对象添加一个事件处理程序`handler`
+
+		eventObj.fireEvent({type:'alert'});  //触发eventObj对象中的事件处理程序`handler`
+
+		eventObj.removeEvent('alert',handler);  //删除eventObj对象中的事件处理程序`handler`
+
+
+		function sendMsg(text) {
+		    window.localStorage.setItem('msg',text);
+		}
+		sendMsg("hello")
+	</script>
+	
+</body>
+</html>

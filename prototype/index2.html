@@ -6,6 +6,15 @@
 </head>
 <body>
 	
+    <script type="text/javascript">
+       function GetQueryString(name)
+        {
+             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+             var r = window.location.search.substr(1).match(reg);
+             return  !!r?unescape(r[2]):null;
+        }
+        console.log(decodeURIComponent(GetQueryString('abc')));
+    </script>
 	<script type="text/javascript">
 		/*寄生组合继承，最通用的继承方式*/
         var Parent = function(name){
@@ -46,6 +55,12 @@
         var child1 = new Child("youming",18);
         var child2 = new Child("youming",18);
         console.log(Parent.prototype)//{getName: ƒ, constructor: ƒ}  子类增加的方法没有影响父类的原型
+
+
+        window.addEventListener('storage', function (evt) {
+            alert(1)
+            //if(evt.key==='msg') console.log(evt.newValue);
+        });
 	</script>
 </body>
 </html>

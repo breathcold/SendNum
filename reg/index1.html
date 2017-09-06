@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则表达式</title>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+</head>
+<body>
+	<div class="regDiv" name="email"><label>邮箱(要求正确格式):</label><input type="text" name=""><button>验证</button></div>
+	<div class="regDiv" name="phone"><label>电话(有效号码):</label><input type="text" name=""><button>验证</button></div>
+	<div class="regDiv" name="pwd"><label>密码(8-16位数字或字母或字符):</label><input type="text" name=""><button>验证</button></div>
+	<div class="regDiv" name="userName"><label>用户名(字母或者数字):</label><input type="text" name=""><button>验证</button></div>
+
+
+
+
+	<script>
+		/**
+		 * 正则验证方式
+		 * TestReg [elems]->dom元素
+		 * valEle -> 输入框dom元素
+		 * btnEle -> 按钮元素
+		 * testEmail验证邮箱方法
+		 * testPhone 验证手机号
+		 * testPwd 验证密码
+		 * testUserName 验证用户名
+		 */
+		var TestReg = function(val){
+			this.val = val;
+		}
+		TestReg.prototype={
+			constructor:TestReg,
+			testEmail:function(){
+				var reg=/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+				reg.test(this.val)?alert("验证成功"):alert("验证失败");
+			},
+			testPhone:function(){
+
+			},
+			testPwd:function(){
+
+			},
+			testUserName:function(){
+
+			}
+		}
+		$('.regDiv').each(function(index, el) {
+			
+		});
+
+		$('.regDiv').on('click', 'button', function(event) {
+			event.preventDefault();
+			var _currentTarget = event.currentTarget;
+				_val = $(_currentTarget).siblings('input').val();
+				var testReg = new TestReg(_val);
+				testReg[$(this).parent('.regDiv').attr("name")]()
+		});
+
+	</script>
+</body>
+</html>
